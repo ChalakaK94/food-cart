@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {Food} from "../shared/models/food";
 import {FoodService} from "../services/food/food.service";
+import {CartService} from "../services/cart/cart.service";
 
 @Component({
   selector: 'app-food-page',
@@ -11,7 +12,8 @@ import {FoodService} from "../services/food/food.service";
 export class FoodPageComponent implements OnInit{
 
   food!: Food
-  constructor(private activateRoute: ActivatedRoute, private  foodService:FoodService) {
+  constructor(private activateRoute: ActivatedRoute,
+              private router:Router, private  foodService:FoodService, private  cartService:CartService) {
     this.activateRoute.params.subscribe(params=>{
       if(params['id']){
         this.food = this.foodService.getFoodById(+params['id'])
@@ -23,6 +25,11 @@ export class FoodPageComponent implements OnInit{
 
   ngOnInit(): void {
 
+  }
+
+  addToCart(){
+    this.cartService.addToCart(this.food);
+    this.router.navigateByUrl('/cart')
   }
 
 }
