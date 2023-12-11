@@ -100,4 +100,8 @@ export class FoodService {
       { name: 'Soup', count: 1 },
     ];
   }
+
+  getFoodById(id:number): Food{
+    return this.getAll().find(food=>food.id === id)!
+  }
 }
