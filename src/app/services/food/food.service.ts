@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Food} from "../../shared/models/food";
+import {Tag} from "../../shared/models/Tag";
 
 @Injectable({
   providedIn: 'root'
@@ -75,6 +76,28 @@ export class FoodService {
         imageUrl: '/assets/images/foods/food-6.jpg',
         tags: ['FastFood', 'Pizza', 'Lunch'],
       },
+    ];
+  }
+
+  getAllFoodByTag(tag:string): Food[]{
+    if(tag === 'All'){
+      return  this.getAll()
+    }else {
+      return  this.getAll().filter(food=>food.tags?.includes(tag))
+    }
+
+  }
+
+  getAllTags():Tag[]{
+    return [
+      { name: 'All', count: 14 },
+      { name: 'FastFood', count: 4 },
+      { name: 'Pizza', count: 2 },
+      { name: 'Lunch', count: 3 },
+      { name: 'SlowFood', count: 2 },
+      { name: 'Hamburger', count: 1 },
+      { name: 'Fry', count: 1 },
+      { name: 'Soup', count: 1 },
     ];
   }
 }
