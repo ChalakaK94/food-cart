@@ -1,31 +1,39 @@
-<ul>
-  <li *ngFor="let cartItems of cart.items">
-    <div>
-      <img [src]='cartItems.food.imageUrl' [alt]="cartItems.food.name">
-    </div>
-    <div>
-      <a routerLink='/food/{{cartItems.food.id}}'>{{cartItems.food.name}}</a>
-    </div>
-    <div>
-      <select #quantitySelect (change)="changeQuantity(cartItems, quantitySelect)">
-        <option>1</option>
-        <option>2</option>
-        <option>3</option>
-        <option>4</option>
-        <option>5</option>
-      </select>
-    </div>
-    <div>{{cartItems.Price | currency}}</div>
+<div class="container" *ngIf="cart.items &&  cart.items.length !== 0 ">
+  <ul>
+    <li *ngFor="let cartItems of cart.items">
+      <div>
+        <img [src]='cartItems.food.imageUrl' [alt]="cartItems.food.name">
+      </div>
+      <div>
+        <a routerLink='/food/{{cartItems.food.id}}'>{{cartItems.food.name}}</a>
+      </div>
+      <div>
+        <select #quantitySelect (change)="changeQuantity(cartItems, quantitySelect)">
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+          <option>5</option>
+        </select>
+      </div>
+      <div>{{cartItems.Price | currency}}</div>
 
-    <div>
-      <button class="remove-button" (click)="removeFromCart(cartItems)">Remove</button>
-    </div>
-  </li>
-</ul>
+      <div>
+        <button class="remove-button" (click)="removeFromCart(cartItems)">Remove</button>
+      </div>
+    </li>
+  </ul>
 
-<div class="checkout">
-  <div>
-    <div class="food-count">{{cart.items.length}}</div>
-    <div class="total-price">{{cart.totalPrice}}</div>
+  <div class="checkout">
+    <div>
+      <div class="food-count">{{cart.items.length}}</div>
+      <div class="total-price">{{cart.totalPrice}}</div>
+    </div>
   </div>
+
+</div>
+
+<div class="not-container"  *ngIf="!cart.items || cart.items?.length ==0 ">
+  <div>No Item added to cart</div> <br/>
+  <button routerLink="/">Go to Homepage </button>
 </div>
